@@ -218,3 +218,73 @@ Stripe Checkout redirects users after payment, but the most secure way to confir
 # 🖼️  Basic UI Components
 
 ### 📄 Pages/Products.razor
+
+### 🛒 Services/CartService.cs
+
+# 💳 Checkout Page
+
+### 📄 Pages/Checkout.razor
+
+### 🧪 Test Flow
+
+!.Run your backend API and Blazor app
+
+2.Visit /products
+
+3.Add items to cart
+
+4. /checkout
+
+5.Click "Proceed to Payment" → redirects to Stripe
+
+6.After successful payment, Stripe webhook marks order as "Paid"
+
+# 🚀 Azure Deployment:
+
+✅ Backend (ASP.NET Core Web API)
+
+✅ Frontend
+
+✅ SQL Databas
+
+✅ Stripe Webhooks (via Stripe CLI or Azure F)
+
+# 🚀 GitHub Ac
+
+🧭 Y
+
+✅ Automatic build and test on each push
+
+✅ Publish to Azure App Servi (API and Blazor)
+
+### 🔧 Step 1: Prep Your Azure App Services
+
+### 🔑 Step 2: Create Azure Deployment Credentials
+
+### 📁 Step 3: Create GitHub Workflow Files
+
+### 🔐 Step 4: Add Secrets to GitHub
+
+### 🧪 Step 5: Test CI/CD
+
+# ✅ Result
+
+Every time you push changes:
+
+<li>API and frontend are built
+
+<li>Deployed automatically to Azure App Services
+
+<li>No manual steps needed
+
+### Perfect — you're now fully set up with:
+
+✅ A C# e-commerce backend (API)
+✅ A Blazor Server frontend
+✅ Stripe payment + webhook handling
+✅ Azure SQL integration
+✅ Fully automated CI/CD via GitHub Actions
+
+This stack is solid for portfolio use, production trials, or job interviews.
+
+
