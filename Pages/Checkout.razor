@@ -1,0 +1,55 @@
+@page "/checkout"
+@inject HttpClient Http
+@inject CartService CartService
+@inject NavigationManager NavManager
+
+<h3>Checkout</h3>
+
+@if (!CartService.Items.Any())
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <ul>
+        @foreach (var item in CartService.Items)
+        {
+            <li>@item.Product.Name x @item.Quantity</li>
+        }
+    </ul>
+
+    <button class="btn btn-success" @onclick="CreateOrder">Proceed to Payment</button>
+}
+
+@code {
+    async Task CreateOrder()
+    {
+        var orderRequest = new
+        {
+            CustomerId = 1, // hardcoded for testing
+            Items = CartService.Items.Select(i => new {
+                ProductId = i.Product.Id,
+                Quantity = i.Quantity
+            }).ToList()
+        };
+
+        var orderResp = await Http.PostAsJsonAsync("orders/create", orderRequest);
+        if (!orderResp.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Order failed.");
+            return;
+        }
+
+        var orderId = await orderResp.Content.ReadFromJsonAsync<int>();
+
+        var paymentResp = await Http.PostAsync($"payments/create-checkout-session/{orderId}", null);
+        var paymentData = await paymentResp.Content.ReadFromJsonAsync<StripeCheckoutResponse>();
+
+        NavManager.NavigateTo(paymentData.Url, true);
+    }
+
+    class StripeCheckoutResponse
+    {
+        public string Url { get; set; }
+    }
+}
