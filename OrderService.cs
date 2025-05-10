@@ -1,4 +1,4 @@
-using EcommerceApp.Data;
+ using EcommerceApp.Data;
 using EcommerceApp.Models;
 using Microsoft.EntityFrameworkCore;
 
