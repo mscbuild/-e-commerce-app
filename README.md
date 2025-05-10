@@ -200,3 +200,21 @@ Stripe Checkout redirects users after payment, but the most secure way to confir
 
 >📌 Note: When creating the Checkout Session earlier, you can add Metadata = new Dictionary<string, string> { { "order_id", order.Id.ToString() } } to the SessionCreateOptions.
 Stripe Checkout redirects users after payment, but the most secure way to confirm payment is by listening to Stripe’s server-side webhooks.
+
+### 🧪 3. Expose Localhost for Stripe Testing
+
+# ✅ Result
+
+1.Now your app will:
+
+2.Create Stripe Checkout sessions.
+
+3.Send users to Stripe to pay.
+
+4.Listen for successful payments via webhook.
+
+5.Automatically mark the order as “Paid” in your database.
+
+# 🖼️  Basic UI Components
+
+### 📄 Pages/Products.razor
