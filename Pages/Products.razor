@@ -1,0 +1,44 @@
+@page "/products"
+@inject HttpClient Http
+
+<h3>Products</h3>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        @foreach (var product in products)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="@product.ImageUrl" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p>@product.Description</p>
+                        <p><strong>$@product.Price</strong></p>
+                        <button class="btn btn-primary" @onclick="@(() => AddToCart(product))">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Http.GetFromJsonAsync<List<Product>>("products");
+    }
+
+    void AddToCart(Product product)
+    {
+        CartService.AddItem(product);
+    }
+
+    [Inject] public CartService CartService { get; set; }
+}
