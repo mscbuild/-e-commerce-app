@@ -227,7 +227,7 @@ Stripe Checkout redirects users after payment, but the most secure way to confir
 
 ### 🧪 Test Flow
 
-!.Run your backend API and Blazor app
+1.Run your backend API and Blazor app
 
 2.Visit /products
 
