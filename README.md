@@ -158,3 +158,29 @@ public class OrderItemRequest
     public int Quantity { get; set; }
 }
 ```
+# 💳 Step-by-Step: Stripe Integration for
+
+### ✅ 1. Set Up Stripe in Your
+
+Install the Stri
+
+```ruby
+dotnet add package Stripe.net
+```
+
+In `appsettings.json`, add you
+```ruby
+"Stripe": {
+  "SecretKey": "sk_test_YourSecretKey",
+  "PublishableKey": "pk_test_YourPublicKey"
+}
+```
+### Load Stripe configuration in Program.cs or Startup.cs:
+
+```ruby
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+```
+### 🧾 2. Create a PaymentService
+
+This will handle creating a Stripe charge (or PaymentIntent for newer APIs):
+  
