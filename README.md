@@ -103,3 +103,58 @@ EcommerceApp/
 ### 💳 5. Payment (Optional if using external gateway only)
 ### 🔗 6. AppDbContext.cs
 ### 🧾 7. ProductsController.cs
+
+# 🧪 Example Test with curl or Postman.
+
+### GET all products
+```ruby
+GET http://localhost:5000/api/products
+```
+### POST new product
+
+```ruby
+POST http://localhost:5000/api/products
+Content-Type: application/json
+
+{
+    "name": "Laptop",
+    "description": "High-performance laptop",
+    "price": 1200.00,
+    "stock": 15,
+    "sku": "LAP123",
+    "imageUrl": "https://example.com/laptop.jpg"
+}
+```
+### 🧩 8. OrderService.cs
+
+# ✅ How to Use OrderService
+
+Example us
+
+```ruby
+[HttpPost("create")]
+public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
+{
+    var result = await _orderService.CreateOrderAsync(request.CustomerId, request.Items);
+
+    if (!result.Success)
+        return BadRequest(result.Message);
+
+    return Ok(result.Message);
+}
+```
+### DTO
+
+```ruby
+public class CreateOrderRequest
+{
+    public int CustomerId { get; set; }
+    public List<OrderItemRequest> Items { get; set; }
+}
+
+public class OrderItemRequest
+{
+    public int ProductId { get; set; }
+    public int Quantity { get; set; }
+}
+```
