@@ -1,0 +1,52 @@
+from fpdf import FPDF
+
+class PDF(FPDF):
+    def header(self):
+        self.set_font('Arial', 'B', 14)
+        self.cell(0, 10, 'C# E-Commerce App Deployment Summary', ln=True, align='C')
+        self.ln(5)
+
+    def chapter_title(self, title):
+        self.set_font('Arial', 'B', 12)
+        self.set_text_color(0, 0, 128)
+        self.cell(0, 10, title, ln=True)
+        self.set_text_color(0, 0, 0)
+
+    def chapter_body(self, body):
+        self.set_font('Arial', '', 11)
+        self.multi_cell(0, 8, body)
+        self.ln()
+
+pdf = PDF()
+pdf.add_page()
+
+sections = [
+    ("Project Overview", 
+     "This C# e-commerce web application consists of an ASP.NET Core Web API backend and a Blazor Server frontend. "
+     "It supports product listing, shopping cart, customer order placement, Stripe payment processing, and webhook confirmation."),
+
+    ("Backend (API)", 
+     "- ASP.NET Core Web API\n- Entity Framework Core with Azure SQL\n- REST endpoints for products, orders, and payments\n"
+     "- Stripe integration for secure payments\n- Webhook endpoint to mark orders as 'Paid'"),
+
+    ("Frontend (Blazor Server)", 
+     "- Product catalog UI with Add to Cart functionality\n- Cart summary and Checkout page\n"
+     "- Calls API endpoints for order and payment\n- Redirects to Stripe Checkout"),
+
+    ("Azure Deployment", 
+     "- Azure App Services for both API and frontend\n- Azure SQL Database for persistence\n"
+     "- Stripe secrets and DB connection string stored in Azure App Configuration"),
+
+    ("CI/CD with GitHub Actions", 
+     "- Two workflow files (.yml) for API and Blazor UI\n- Automatically builds and deploys on push to 'main'\n"
+     "- Secrets stored securely in GitHub\n- Uses 'azure/webapps-deploy' for publishing to App Services"),
+
+    ("Future Enhancements", 
+     "- Add user authentication\n- Build an admin dashboard\n- Product filtering and search\n- Email notifications\n- Multi-language support")
+]
+
+for title, body in sections:
+    pdf.chapter_title(title)
+    pdf.chapter_body(body)
+
+pdf.output("Ecommerce_Deployment_Summary.pdf")
