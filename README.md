@@ -170,7 +170,7 @@ public class OrderItemRequest
 
 ### ✅ 1. Set Up Stripe in Your
 
-Install the Stri
+Install the Stripe
 
 ```ruby
 dotnet add package Stripe.net
@@ -288,9 +288,13 @@ Every time you push changes:
 ### Perfect — you're now fully set up with:
 
 ✅ A C# e-commerce backend (API)
+
 ✅ A Blazor Server frontend
+
 ✅ Stripe payment + webhook handling
+
 ✅ Azure SQL integration
+
 ✅ Fully automated CI/CD via GitHub Actions
 
 This stack is solid for portfolio use, production trials, or job interviews.
