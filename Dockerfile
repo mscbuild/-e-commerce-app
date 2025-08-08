@@ -1,22 +1,24 @@
- # Используем официальный образ .NET SDK для сборки
+# Use .NET SDK to build and publish
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Копируем CSPROJ и восстанавливаем зависимости
-COPY *.csproj ./
+# Copy project file and restore dependencies
+COPY MyWebApp.csproj ./
 RUN dotnet restore
 
-# Копируем всё остальное и собираем приложение
-COPY . ./
-RUN dotnet publish -c Release -o out
+# Copy all source code
+COPY . .
 
-# Используем ASP.NET Core Runtime для запуска
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Publish the app
+RUN dotnet publish -c Release -o /app/publish --no-restore
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=build /app/publish .
 
-# Открываем порт
+# Expose port 80 (HTTP)
 EXPOSE 80
 
-# Устанавливаем команду по умолчанию
-ENTRYPOINT ["dotnet", "Indotalent.dll"]
+# Run the app
+ENTRYPOINT ["dotnet", "MyWebApp.dll"]
